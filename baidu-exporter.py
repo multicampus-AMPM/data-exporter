@@ -27,7 +27,7 @@ class BaiduExporter(object):
 
     def __init__(self, data_path):
         # DataFrame
-        print(f" * BaiduExporter - reading data from {data_path}, it may take quite a while")
+        print(f" * {self.__class__} - reading data from {data_path}, it may take quite a while")
         self.data = pd.read_excel(data_path)
         # List
         self.columns = self.data.columns
@@ -42,8 +42,8 @@ class BaiduExporter(object):
         self.device = 'sda'
 
     def collect(self):
-        app.logger.error(id(self.data))
-        app.logger.error(f'current row is {self.current_row}')
+        # app.logger.error(id(self.data))
+        app.logger.error(f'the current row is {self.current_row}')
         row = self.data.iloc[self.current_row]
 
         metric_current = GaugeMetricFamily(name=self.name_current, documentation=self.desc_current, labels=self.labels)
@@ -90,10 +90,10 @@ def main():
 
 
 if __name__ == '__main__':
-    data_path = os.environ.get('path')
-    if data_path is None:
+    file_path = os.environ.get('path')
+    if file_path is None:
         print('[ERROR] path is not defined')
         sys.exit(1)
-    file_path = 'data/Baidu_SMART Dataset.xlsx'
+    # file_path = 'data/Baidu_SMART Dataset.xlsx'
     exporter.registry.register(BaiduExporter(file_path))
     app.run(host='0.0.0.0', port='8000')
