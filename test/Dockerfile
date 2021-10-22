@@ -5,5 +5,5 @@ RUN pip install --no-cache-dir --requirement requirements.txt
 COPY ./data/ ./data/
 COPY ./test-exporter.py .
 EXPOSE 8001
-ENV path='data/test_sample.csv'
+ENV path='data/smart_test.csv'
 CMD ["python", "./test-exporter.py"]

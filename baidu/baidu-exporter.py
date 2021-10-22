@@ -7,7 +7,6 @@ import os
 
 
 WIKI_NAMES = {
-    'Drive Status': 'failure',
     'Raw Read Error Rate': 'read-error-rate',
     'SpinUpTime': 'spin-up-time',
     'Reallocated Sector Count': 'reallocated-sectors-count',
@@ -31,7 +30,7 @@ class BaiduExporter(object):
         self.data = pd.read_excel(data_path)
         # List
         self.columns = self.data.columns
-        self.feature_offset = 1
+        self.feature_offset = 2
         self.current_row = 0
         self.name_current = 'collectd_smart_smart_attribute_current'
         self.name_pretty = 'collectd_smart_smart_attribute_pretty'
