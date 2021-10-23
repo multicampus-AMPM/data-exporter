@@ -2,6 +2,7 @@ from flask import Flask
 from prometheus_flask_exporter import PrometheusMetrics
 from prometheus_client.core import GaugeMetricFamily
 import pandas as pd
+import numpy as np
 import sys
 import os
 
@@ -45,10 +46,11 @@ class BackBlazeExporter(object):
             if self.columns.get_loc(attr_name) < self.feature_offset:
                 continue
             labels = [self.instance, self.device, attr_name]
+            value = 0 if np.isnan(v) else v
             if attr_name.endswith('raw'):
-                metric_pretty.add_metric(labels, v)
+                metric_pretty.add_metric(labels, value)
             else:
-                 metric_current.add_metric(labels, v)
+                 metric_current.add_metric(labels, value)
         yield metric_current
         yield metric_pretty
         self.current_row += 1

@@ -2,6 +2,7 @@ from flask import Flask
 from prometheus_flask_exporter import PrometheusMetrics
 from prometheus_client.core import GaugeMetricFamily
 import pandas as pd
+import numpy as np
 import sys
 import os
 
@@ -53,11 +54,12 @@ class BaiduExporter(object):
             if attr_name is None:
                 continue
             labels = [self.instance, self.device, attr_name]
+            value = 0 if np.isnan(v) else v
             # TODO 12 processing
             if i in self.columns[self.feature_offset:12]:
-                metric_current.add_metric(labels, v)
+                metric_current.add_metric(labels, value)
             else:
-                metric_pretty.add_metric(labels, v)
+                metric_pretty.add_metric(labels, value)
         yield metric_current
         yield metric_pretty
         self.current_row += 1
