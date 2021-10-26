@@ -28,8 +28,8 @@ class BackBlazeExporter(object):
     
     def load_data(self, data_path):
         temp = pd.read_csv(data_path)
-        temp.fillna(temp.mean())
-        temp.fillna(0)
+        temp = temp.fillna(temp.mean())
+        temp = temp.fillna(0)
         return temp
 
     def collect(self):
@@ -46,7 +46,7 @@ class BackBlazeExporter(object):
             if self.columns.get_loc(attr_name) < self.feature_offset:
                 continue
             labels = [self.instance, self.device, attr_name]
-            value = 0 if np.isnan(v) else v
+            value = 0 if np.isnan(v) else v # required to remove
             if attr_name.endswith('raw'):
                 metric_pretty.add_metric(labels, value)
             else:
