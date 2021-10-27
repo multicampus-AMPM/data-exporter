@@ -5,5 +5,5 @@ RUN pip install --no-cache-dir --requirement requirements.txt
 COPY ./data/ ./data/
 COPY ./backblaze-exporter.py .
 EXPOSE 8002
-ENV path='data/test_sample.csv'
+ENV path='data/backblaze_sample.csv'
 CMD ["python", "./backblaze-exporter.py"]
