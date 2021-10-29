@@ -39,7 +39,8 @@ class TestExporter(object):
             attr_name = i
             if self.columns.get_loc(attr_name) < self.feature_offset:
                 continue
-            labels = [self.instance, self.device, attr_name]
+            mod_name = attr_name.replace('-raw', '') if attr_name.endswith('-raw') else attr_name.replace('-normal', '')
+            labels = [self.instance, self.device, mod_name]
             value = 0 if np.isnan(v) else v
             if attr_name.endswith('raw'):
                 metric_pretty.add_metric(labels, value)

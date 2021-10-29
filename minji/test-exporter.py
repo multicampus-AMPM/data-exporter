@@ -12,7 +12,7 @@ class TestExporter(object):
 
     def __init__(self, data_path):
         # DataFrame
-        print(f" * {self.__class__.__name__} - reading data from {data_path}, it may take quite a while")
+        print(f" * {self.__class__} - reading data from {data_path}, it may take quite a while")
         self.data = pd.read_csv(data_path)
         # List
         self.columns = self.data.columns
@@ -82,4 +82,4 @@ if __name__ == '__main__':
         print('[ERROR] path is not defined')
         sys.exit(1)
     exporter.registry.register(TestExporter(file_path))
-    app.run(host='0.0.0.0', port='8010')
+    app.run(host='0.0.0.0', port='8008')
